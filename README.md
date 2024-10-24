@@ -30,8 +30,7 @@
 
 - ERD
 
-  - ![ERD_IMG](./assets/img/erd.png) 각자 ERD 짜서 이미지 넣기
-
+  - ![ERD_IMG](./assets/img/erd.png)
 - CRUD
 
   - 링크 참고해서 명세에 맞게 백엔드 짜보기
