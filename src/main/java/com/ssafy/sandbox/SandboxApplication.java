@@ -18,7 +18,7 @@ public class SandboxApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("https://ssafysandbox.vercel.app");
+				registry.addMapping("/**").allowedOrigins("https://ssafysandbox.vercel.app").allowedMethods("GET", "POST", "PATCH", "DELETE");
 			}
 		};
 	}
