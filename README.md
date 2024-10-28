@@ -15,7 +15,7 @@
 
 1. https://start.spring.io/
    1. SpringBoot를 사용할 거라면 해당 사이트 활용
-      ![start](/assets/img/01. start_spring.png)
+      ![start](/assets/img/01.start_spring.png)
    2. 이미지 참고해서 세팅해보기
    3. DB 관련 의존성 build.gradle에 명시 (DB 관련 의존성 미리 넣으면 관련 세팅 전까지 에러 발생 주의 JPA, JDBC)
    - DB 의존성 관련 설정은 application.properties 나 yml 쪽 찾아볼 것
