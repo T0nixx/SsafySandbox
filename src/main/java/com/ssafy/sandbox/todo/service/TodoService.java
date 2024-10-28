@@ -14,5 +14,5 @@ public interface TodoService {
     public Optional<TodoVo> findById(int id);
     public TodoVo save(TodoVo todo);
     public boolean deleteById(int id);
-    public TodoVo updateTodo(int id, TodoVo updatedTodo);
+    public TodoVo updateTodo(int id);
 }

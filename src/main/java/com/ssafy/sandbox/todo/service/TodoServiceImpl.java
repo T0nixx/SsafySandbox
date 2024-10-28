@@ -43,12 +43,13 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public TodoVo updateTodo(int id, TodoVo updatedTodo) {
+    public TodoVo updateTodo(int id) {
          if(repository.existsById(id)){
-             repository.save(updatedTodo);
-         } else{
-             throw new IllegalArgumentException("todo not found");
+             TodoVo todo = repository.findById(id).get();
+             todo.setCompleted(!todo.isCompleted());
+             repository.save(todo);
+             return todo;
          }
-        return repository.findById(id).get();
+        return null;
     }
 }

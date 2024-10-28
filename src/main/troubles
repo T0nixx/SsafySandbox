@@ -12,3 +12,6 @@
 DefaultHandlerExceptionResolver :
 Resolved [org.springframework.web.bind.MissingServletRequestParameterException:
 Required request parameter 'content' for method parameter type String is not present]
+
+3. @DeleteMapping("/todos/{todoId}")의 {} 데이터를 받아올 때
+컨트롤러 파라미터에 @RequestParam을 쓰는 것이 아니라 @PathVariable 어노테이션을 붙여 접근해야 함
