@@ -8,9 +8,9 @@ import com.ssafy.sandbox.todo.model.Todo;
 public interface TodoService {
 	List<Todo> getTodos();
 
-	boolean createTodo(CreateTodoRequest createTodoRequest);
+	Long createTodo(CreateTodoRequest createTodoRequest);
 
-	boolean updateStatus(Integer todoId);
+	void toggleStatus(Long todoId) throws Exception;
 
-	boolean deleteTodo(Integer todoId);
+	void deleteTodo(Long todoId) throws  Exception;
 }

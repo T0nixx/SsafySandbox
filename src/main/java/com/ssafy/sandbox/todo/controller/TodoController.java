@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +35,23 @@ public class TodoController {
 		return ResponseEntity.ok(new GetTodosResponse(todos));
 	}
 
+
+	@PostMapping
+	public ResponseEntity<Void> createTodo(@RequestBody CreateTodoRequest createTodoRequest) {
+		todoService.createTodo(createTodoRequest);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@PatchMapping("/{todoId}")
+	public ResponseEntity<Void> toggleStatus(@PathVariable Long todoId) throws Exception {
+		todoService.toggleStatus(todoId);
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping("/{todoId}")
+	public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) throws Exception {
+		todoService.deleteTodo(todoId);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
