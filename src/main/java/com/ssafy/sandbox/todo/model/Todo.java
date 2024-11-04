@@ -6,9 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 @Entity
 @Table(name = "todo")
+@Getter
 public class Todo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +35,4 @@ public class Todo {
 		return new Todo(content);
 	}
 
-	public Long getId() {
-		return id;
-	}
 }
