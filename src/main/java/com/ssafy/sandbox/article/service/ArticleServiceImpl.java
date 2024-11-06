@@ -17,14 +17,15 @@ public class ArticleServiceImpl implements ArticleService {
 	private final ArticleRepository articleRepository;
 
 	@Override
-	public ArticleOffsetPageResponseDto getArticlesWithOffset(Integer pageSize, Integer page) {
-		List<Article> articles = articleRepository.getArticlePageByOffset(pageSize, page * pageSize);
-		Long totalCount = articleRepository.getArticleCount();
-		return ArticleOffsetPageResponseDto.from(articles, totalCount);
+	public ArticleOffsetPageResponseDto getArticlesWithOffset(Long pageSize, Long offset) {
+		List<Article> articles = articleRepository.getArticlePageByOffset(pageSize, offset);
+		Long totalArticleCount = articleRepository.getArticleCount();
+
+		return ArticleOffsetPageResponseDto.from(articles, totalArticleCount, pageSize);
 	}
 
 	@Override
-	public ArticleCursorPageResponseDto getArticlesWithCursor(Integer pageSize, Long cursorId) {
+	public ArticleCursorPageResponseDto getArticlesWithCursor(Long pageSize, Long cursorId) {
 		List<Article> articles = articleRepository.getArticlePageByCursor(pageSize, cursorId);
 		int listSize = articles.size();
 

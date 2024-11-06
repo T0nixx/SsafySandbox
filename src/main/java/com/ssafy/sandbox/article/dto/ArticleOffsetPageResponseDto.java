@@ -3,21 +3,23 @@ package com.ssafy.sandbox.article.dto;
 import java.util.List;
 
 import com.ssafy.sandbox.article.model.Article;
+import com.ssafy.sandbox.common.util.PaginationUtil;
 
 import lombok.Getter;
 
 @Getter
 public class ArticleOffsetPageResponseDto {
 	List<ArticleResponseDto> articles;
-	Long totalArticleCount;
+	Long totalPage;
 
-	private ArticleOffsetPageResponseDto(List<ArticleResponseDto> articles, Long totalArticleCount) {
+	private ArticleOffsetPageResponseDto(List<ArticleResponseDto> articles, Long totalPage) {
 		this.articles = articles;
-		this.totalArticleCount = totalArticleCount;
+		this.totalPage = totalPage;
 	}
 
-	public static ArticleOffsetPageResponseDto from(List<Article> articles, Long totalArticleCount) {
-		return new ArticleOffsetPageResponseDto(articles.stream().map(ArticleResponseDto::from).toList(),
-			totalArticleCount);
+	public static ArticleOffsetPageResponseDto from(List<Article> articles, Long totalArticleCount, Long pageSize) {
+		Long totalPage = PaginationUtil.calculateTotalPage(totalArticleCount, pageSize);
+		return new ArticleOffsetPageResponseDto(articles.stream().map(ArticleResponseDto::from).toList(), totalPage
+		);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.sandbox.article.model.Article;
 import com.ssafy.sandbox.article.model.QArticle;
@@ -17,7 +18,7 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
 	private final QArticle article = QArticle.article;
 
 	@Override
-	public List<Article> getArticlePageByOffset(Integer pageSize, Integer offset) {
+	public List<Article> getArticlePageByOffset(Long pageSize, Long offset) {
 		return jpaQueryFactory.selectFrom(article)
 			.orderBy(article.createdAt.desc())
 			.offset(offset)
@@ -30,13 +31,31 @@ public class QueryDslRepositoryImpl implements QueryDslRepository {
 	}
 
 	@Override
-	public List<Article> getArticlePageByCursor(Integer pageSize, Long cursorId) {
+	public List<Article> getArticlePageByCursor(Long pageSize, Long cursorId) {
+		BooleanExpression condition = createCursorPaginationCondition(cursorId);
+
 		return jpaQueryFactory.selectFrom(article)
-			.where(article.createdAt.loe(
-					jpaQueryFactory.select(article.createdAt).from(article).where(article.id.eq(cursorId)))
-				.and(article.id.ne(cursorId)))
-			.orderBy(article.createdAt.desc())
+			.where(condition)
+			.orderBy(article.createdAt.desc(), article.id.desc())
 			.limit(pageSize)
 			.fetch();
+	}
+
+	private BooleanExpression createCursorPaginationCondition(Long cursorId) {
+		if (cursorId == null) {
+			return null;
+		}
+
+		Article cursorArticle = jpaQueryFactory.selectFrom(article)
+			.where(article.id.eq(cursorId))
+			.fetchOne();
+
+		if (cursorArticle == null) {
+			return null;
+		}
+
+		return article.createdAt.lt(cursorArticle.getCreatedAt())
+			.or(article.createdAt.eq(cursorArticle.getCreatedAt())
+				.and(article.id.lt(cursorId)));
 	}
 }

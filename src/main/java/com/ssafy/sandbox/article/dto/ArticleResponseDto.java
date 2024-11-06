@@ -14,6 +14,9 @@ public class ArticleResponseDto {
 	private final Long id;
 	private final String title;
 	private final String createdAt;
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss 'GMT'XXX",
+			Locale.ENGLISH)
+		.withZone(ZoneId.of("Asia/Seoul"));
 
 	private ArticleResponseDto(Long id, String title, String createdAt) {
 		this.id = id;
@@ -26,8 +29,6 @@ public class ArticleResponseDto {
 	}
 
 	private static String formatInstant(Instant instant) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss 'GMT'XXX", Locale.ENGLISH)
-			.withZone(ZoneId.of("Asia/Seoul"));
 		return formatter.format(instant);
 	}
 
