@@ -35,8 +35,8 @@ public class ArticleController {
 	}
 
 	@PostMapping("/make")
-	public ResponseEntity<Void> makeArticles(@RequestBody MakeArticlesRequestDto makeArticlesRequestDto) {
-		articleService.makeArticles(makeArticlesRequestDto.getArticles());
+	public ResponseEntity<Void> makeArticles(@RequestBody MakeArticlesRequestDto articlesRequest) {
+		articleService.makeArticles(articlesRequest.toArticles());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }

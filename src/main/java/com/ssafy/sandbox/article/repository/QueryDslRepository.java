@@ -5,9 +5,9 @@ import java.util.List;
 import com.ssafy.sandbox.article.model.Article;
 
 public interface QueryDslRepository {
-	List<Article> getArticlePageByOffset(Integer pageSize, Integer offset);
+	List<Article> getArticlePageByOffset(Long pageSize, Long offset);
 
-	List<Article> getArticlePageByCursor(Integer pageSize, Long cursorId);
+	List<Article> getArticlePageByCursor(Long pageSize, Long cursorId);
 
 	Long getArticleCount();
 }

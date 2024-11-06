@@ -8,9 +8,9 @@ import com.ssafy.sandbox.article.model.Article;
 
 public interface ArticleService {
 
-	ArticleOffsetPageResponseDto getArticlesWithOffset(Integer pageSize, Integer page);
+	ArticleOffsetPageResponseDto getArticlesWithOffset(Long pageSize, Long offset);
 
-	ArticleCursorPageResponseDto getArticlesWithCursor(Integer pageSize, Long cursorId);
+	ArticleCursorPageResponseDto getArticlesWithCursor(Long pageSize, Long cursorId);
 
 	void makeArticles(List<Article> articles);
 
