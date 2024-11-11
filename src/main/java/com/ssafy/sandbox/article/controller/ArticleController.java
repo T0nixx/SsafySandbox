@@ -13,6 +13,7 @@ import com.ssafy.sandbox.article.dto.ArticleCursorPageResponseDto;
 import com.ssafy.sandbox.article.dto.ArticleOffsetPageResponseDto;
 import com.ssafy.sandbox.article.dto.MakeArticlesRequestDto;
 import com.ssafy.sandbox.article.service.ArticleService;
+import com.ssafy.sandbox.common.util.PaginationUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,14 +24,17 @@ public class ArticleController {
 	private final ArticleService articleService;
 
 	@GetMapping("/paging/offset")
-	public ResponseEntity<ArticleOffsetPageResponseDto> getArticlesWithOffset(@RequestParam Integer size,
-		@RequestParam Integer page) {
-		return ResponseEntity.ok(articleService.getArticlesWithOffset(size, page));
+	public ResponseEntity<ArticleOffsetPageResponseDto> getArticlesWithOffset(
+		@RequestParam(defaultValue = "10") Long size,
+		@RequestParam(defaultValue = "1") Long page) {
+		Long offset = PaginationUtil.calculateOffset(page, size);
+		return ResponseEntity.ok(articleService.getArticlesWithOffset(size, offset));
 	}
 
 	@GetMapping("/paging/cursor")
-	public ResponseEntity<ArticleCursorPageResponseDto> getArticlesWithCursor(@RequestParam Integer size,
-		@RequestParam Long cursorId) {
+	public ResponseEntity<ArticleCursorPageResponseDto> getArticlesWithCursor(
+		@RequestParam(defaultValue = "10") Long size,
+		@RequestParam(defaultValue = "0") Long cursorId) {
 		return ResponseEntity.ok(articleService.getArticlesWithCursor(size, cursorId));
 	}
 
