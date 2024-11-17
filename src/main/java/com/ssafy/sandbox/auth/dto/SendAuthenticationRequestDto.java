@@ -3,7 +3,6 @@ package com.ssafy.sandbox.auth.dto;
 import lombok.Data;
 
 @Data
-public class EmailAuthenticationRequestDto {
-	private String authentication;
+public class SendAuthenticationRequestDto {
 	private String email;
 }

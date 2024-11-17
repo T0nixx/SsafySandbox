@@ -5,21 +5,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
-import com.ssafy.sandbox.auth.dto.MemberAuthenticationDto;
+import com.ssafy.sandbox.auth.domain.EmailAuthenticationToken;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EmailTokenService {
-	private final Map<String, MemberAuthenticationDto> temporaryMembers = new ConcurrentHashMap<>();
+	private final Map<String, EmailAuthenticationToken> temporaryMembers = new ConcurrentHashMap<>();
 
-	public void storeUser(MemberAuthenticationDto temporaryUser) {
+	public void storeUser(EmailAuthenticationToken temporaryUser) {
 		temporaryMembers.put(temporaryUser.getEmail(), temporaryUser);
 	}
 
-	public MemberAuthenticationDto retrieveUser(String token) {
-		MemberAuthenticationDto memberVerificationDto = temporaryMembers.get(token);
+	public EmailAuthenticationToken retrieveUser(String token) {
+		EmailAuthenticationToken memberVerificationDto = temporaryMembers.get(token);
 		if (memberVerificationDto == null || memberVerificationDto.isExpired()) {
 			temporaryMembers.remove(token); // 만료된 경우 삭제
 			return null;

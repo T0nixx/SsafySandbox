@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class EmailAuthenticationResponseDto {
+public class AuthenticationResponseDto {
 	private Boolean isSuccess;
 }
